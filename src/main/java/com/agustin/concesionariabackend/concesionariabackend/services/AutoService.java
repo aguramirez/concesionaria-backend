@@ -7,9 +7,11 @@ import com.agustin.concesionariabackend.concesionariabackend.models.entities.Aut
 
 public interface AutoService {
     
-    public List<Auto> findAll();
+    List<Auto> findAll();
 
-    public Optional<Auto> findById(Long id);
+    Optional<Auto> findById(Long id);
 
-    public Auto save(Auto auto);
+    Auto save(Auto auto);
+
+    Optional<Auto> update(Auto auto, Long id);
 }

@@ -1,5 +1,6 @@
 package com.agustin.concesionariabackend.concesionariabackend.models.entities;
 
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ public class Auto {
     private Integer anio;
     private Integer km;
     private Double precio;
-    // private List<String> imagenesUrl;
+    private List<String> imagenesUrl;
     private String descripcion;
     private String tipo;
     private String version;
@@ -67,12 +68,12 @@ public class Auto {
     public void setPrecio(Double precio) {
         this.precio = precio;
     }
-    // public List<String> getImagenesUrl() {
-    //     return imagenesUrl;
-    // }
-    // public void setImagenesUrl(List<String> imagenesUrl) {
-    //     this.imagenesUrl = imagenesUrl;
-    // }
+    public List<String> getImagenesUrl() {
+        return imagenesUrl;
+    }
+    public void setImagenesUrl(List<String> imagenesUrl) {
+        this.imagenesUrl = imagenesUrl;
+    }
     public String getDescripcion() {
         return descripcion;
     }

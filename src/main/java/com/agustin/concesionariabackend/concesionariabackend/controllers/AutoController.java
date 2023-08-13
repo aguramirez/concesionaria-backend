@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,8 +42,17 @@ public class AutoController {
 
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<?> save(@RequestBody Auto auto){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(auto));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@RequestBody Auto auto, @PathVariable Long id){
+        Optional<Auto> a = service.update(auto, id);
+        if(a.isPresent()){
+            return ResponseEntity.status(HttpStatus.CREATED).body(a.orElseThrow());
+        }
+        return ResponseEntity.notFound().build();
     }
 }

@@ -33,6 +33,33 @@ public class AutoServiceImpl implements AutoService {
     public Auto save(Auto auto) {
         return repository.save(auto);
     }
+
+    @Override
+    @Transactional
+    public Optional<Auto> update(Auto auto, Long id) {
+        Optional<Auto> a = this.findById(id);
+        Auto autoOpt = null;
+
+        if(a.isPresent()){
+            Auto autoDb = a.orElseThrow();
+            autoDb.setMarca(auto.getMarca());
+            autoDb.setModelo(auto.getModelo());
+            autoDb.setAnio(auto.getAnio());
+            autoDb.setKm(auto.getKm());
+            autoDb.setPrecio(auto.getPrecio());
+            autoDb.setImagenesUrl(auto.getImagenesUrl());
+            autoDb.setDescripcion(auto.getDescripcion());
+            autoDb.setTipo(auto.getTipo());
+            autoDb.setVersion(auto.getVersion());
+            autoDb.setColor(auto.getColor());
+            autoDb.setCombustible(auto.getCombustible());
+            autoDb.setPuertas(auto.getPuertas());
+            autoDb.setTransmicion(auto.getTransmicion());
+            autoDb.setMotor(auto.getMotor());
+            autoOpt = this.save(autoDb);
+        }
+        return Optional.ofNullable(autoOpt);
+    }
     
     
 }
