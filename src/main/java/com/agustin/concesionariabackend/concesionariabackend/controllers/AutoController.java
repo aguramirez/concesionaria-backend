@@ -1,24 +1,48 @@
 package com.agustin.concesionariabackend.concesionariabackend.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agustin.concesionariabackend.concesionariabackend.models.entities.Auto;
 import com.agustin.concesionariabackend.concesionariabackend.services.AutoService;
 
 @RestController
+@RequestMapping("/autos")
 @CrossOrigin(origins = "http://localhost:5173")
 public class AutoController {
     
     @Autowired
     private AutoService service;
 
-    @GetMapping("/")
+    @GetMapping
     public List<Auto> index(){
         return service.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> show(@PathVariable Long id){
+        Optional<Auto> autoOpt = service.findById(id);
+
+        if(autoOpt.isPresent()){
+            return ResponseEntity.ok(autoOpt.orElseThrow());
+        }
+        return ResponseEntity.notFound().build();
+
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<?> save(@RequestBody Auto auto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(auto));
     }
 }
