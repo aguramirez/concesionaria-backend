@@ -20,7 +20,7 @@ import com.agustin.concesionariabackend.concesionariabackend.services.AutoServic
 
 @RestController
 @RequestMapping("/autos")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 public class AutoController {
     
     @Autowired
