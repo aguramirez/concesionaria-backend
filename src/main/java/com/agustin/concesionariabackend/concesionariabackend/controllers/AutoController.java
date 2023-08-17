@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +43,7 @@ public class AutoController {
 
     }
 
-    @PostMapping
+    @PostMapping("/crear")
     public ResponseEntity<?> save(@RequestBody Auto auto){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(auto));
     }
@@ -54,5 +55,15 @@ public class AutoController {
             return ResponseEntity.status(HttpStatus.CREATED).body(a.orElseThrow());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> remove(@PathVariable Long id){
+        Optional<Auto> a = service.findById(id);
+        if(a.isPresent()){
+            service.remove(id);
+            return ResponseEntity.noContent().build(); //204
+        }
+        return ResponseEntity.notFound().build(); //404
     }
 }

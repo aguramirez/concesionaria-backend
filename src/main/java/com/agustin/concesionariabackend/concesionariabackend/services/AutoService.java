@@ -14,4 +14,6 @@ public interface AutoService {
     Auto save(Auto auto);
 
     Optional<Auto> update(Auto auto, Long id);
+
+    void remove(Long id);
 }

@@ -61,5 +61,10 @@ public class AutoServiceImpl implements AutoService {
         return Optional.ofNullable(autoOpt);
     }
     
+    @Override
+    @Transactional
+    public void remove(Long id) {
+        repository.deleteById(id);
+    }
     
 }
