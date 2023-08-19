@@ -32,7 +32,7 @@ public class AutoController {
         return service.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/detalle/{id}")
     public ResponseEntity<?> show(@PathVariable Long id){
         Optional<Auto> autoOpt = service.findById(id);
 
@@ -48,7 +48,7 @@ public class AutoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(auto));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("editar/{id}")
     public ResponseEntity<?> update(@RequestBody Auto auto, @PathVariable Long id){
         Optional<Auto> a = service.update(auto, id);
         if(a.isPresent()){
